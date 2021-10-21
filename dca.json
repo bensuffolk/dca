@@ -1,0 +1,18 @@
+{
+    "market": [
+        "ALGO-GBP",
+        "XTZ-GBP",
+    ],
+    "ALGO-GBP": {
+        "buy-enabled": true,
+        "buy-amount": 2,
+        "transfer-to": "wallet",
+        "transfer-address": "AXXCIFO47GA5KUC7TMGWMH4T4SP2LVXEN6HU4KL7YJ7ILJLPH7QLI7BEGQ",
+        "transfer-max-fee": 0.002
+    },
+    "XTZ-GBP": {
+        "buy-enabled": true,
+        "buy-fund": 1.78,
+        "transfer-to": "coinbase"
+    }
+}

@@ -1,0 +1,5 @@
+{
+    "require": {
+        "mocking-magician/coinbase-pro-sdk": "^0.9.4"
+    }
+}

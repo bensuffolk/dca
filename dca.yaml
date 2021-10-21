@@ -1,0 +1,5 @@
+params:
+  endpoint: "https://api.exchange.coinbase.com"
+  key: "<COINBASE PRO KEY>"
+  secret: "<COINBASE PRO SECRET>"
+  passphrase: "<COINBASE PRO PASS>"
