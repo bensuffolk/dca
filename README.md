@@ -51,6 +51,7 @@ You will then need to setup the config file dca.json to show which coins you wis
     ],
     "ALGO-GBP": {
         "buy-enabled": true,
+        "max-buy-price": 1.25,
         "buy-amount": 2,
         "transfer-to": "wallet",
         "transfer-address": "AXXCIFO47GA5KUC7TMGWMH4T4SP2LVXEN6HU4KL7YJ7ILJLPH7QLI7BEGQ",
@@ -59,7 +60,8 @@ You will then need to setup the config file dca.json to show which coins you wis
     "XTZ-GBP": {
         "buy-enabled": true,
         "buy-fund": 2.50,
-        "transfer-to": "coinbase"
+        "transfer-to": "coinbase",
+        "min-transfer-balance": 2
     }
 }
 ```
@@ -69,6 +71,10 @@ The `markets` section is an array of all coin pairs you wish to buy. I have test
 Then for every market pair you will need to section to define how much you wish to buy and what to do with it. 
 
 `buy-enabled` Must be set to true for any purchases to be made.
+
+`max-buy-price` Optional. The maximum price you are willing to pay for this coin. If the current market price is above this no purchase will be made. 
+
+**Note: You are buying at market price, so the price you actually pay may rise above this threshold during the actual buy transaction.** 
 
 `buy-fund` Is how much you want to buy. You will need to specify either this or buy-amount.
 
@@ -82,7 +88,9 @@ Then for every market pair you will need to section to define how much you wish 
 
 `transfer-max-fee' Must be specified if trasfer-to is wallet. If the estimated transfer fee if greater than this amount, the trasnfer will not happen. 
 
-In the above example file you can see it will purached 2 ALGO and transfer them to a wallet, and £2.50 worth of XTZ and trasnfer it to a coinbase wallet.
+`min-transfer-balance` Optional. The transfer will only happen if there are at least this number of coins in your balance.
+
+In the above example file you can see it will purchase 2 ALGO and transfer them to a wallet, and £2.50 worth of XTZ and if there are 2 or more trasnfer them to a coinbase wallet.
 
 
 ## Usage

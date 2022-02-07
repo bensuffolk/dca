@@ -94,6 +94,14 @@ $websocket->run($subscriber, function($runner)
    // Make sure we have enough balance
    list($coin, $currency) = explode('-', $market);
 
+   // Don't buy if the price is too high
+   if(($max_price = get_config('max-buy-price', $market)) !== FALSE && $price > $max_price)
+   {
+    echo sprintf("%8s Price above limit: %f, no purchase\n", $market, $max_price);
+    $GLOBALS[$market]['mode'] = MODE_NO_BUY;
+    continue;
+   }
+
    if(get_config('buy-fund', $market) > $GLOBALS['balance'][$currency])
    {
     error_log("Not enough balance of ".$currency." to buy ".$coin);
@@ -344,6 +352,14 @@ function withdraw_to_cb($market, $amount=0)
   return;
  }
  
+ // Make sure there is a minimum balance of coins before the transfer happens
+ if(($min = get_config('min-transfer-balance', $market)) !== FALSE && $amount < $min)
+ {
+  echo sprintf("Balance of %s below minimum transfer threshold\n", $coin);
+  $GLOBALS[$market]['mode'] = MODE_DONE;
+  return;
+ }
+
  try
  {
   echo sprintf("Transfering %f %s to Coinbase\n", $amount, $coin);
@@ -375,6 +391,14 @@ function withdraw_to_wallet($market, $address, $max_fee = FALSE, $amount=0)
   return;
  }
  
+ // Make sure there is a minimum balance of coins before the transfer happens
+ if(($min = get_config('min-transfer-balance', $market)) !== FALSE && $amount < $min)
+ {
+  echo sprintf("Balance of %s below minimum transfer threshold\n", $coin);
+  $GLOBALS[$market]['mode'] = MODE_DONE;
+  return;
+ }
+
  try
  {
   $fee = $GLOBALS['api']->withdrawals()->getFeeEstimate($coin, $address);
